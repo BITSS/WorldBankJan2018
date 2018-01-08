@@ -1,0 +1,200 @@
+---
+title: "Dynamic Documents For Your Research Workflow"
+author: "| Fernando Hoces de la Guardia\n| BITSS   \n| -\n| Slides at <https://goo.gl/cf3w1Y>\n"
+date: "BITSS Annual Meeting, December 2017"
+output:
+  beamer_presentation:
+    fig_caption: no
+    keep_tex: yes
+    toc: yes
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+
+# Dynamic Documents For Computational Reproducibility
+
+## First: can you take this quick survey please?
+
+\Huge{https://goo.gl/oZjMCf}
+
+## Dynamic Documents For Computational Reproducibility
+- Based on principles of *literate programming* aims at combining code and paper in one single document 
+- Best framework to achieve the holy grail of **one-click reproducible workflow**
+- Best two current implementations: `RMarkdown (R)` & `Jupyter (Python)`. `Stata` is catching up (more at the end)
+
+## Currently code and narrative components live in separate universes 
+![](./Two universes.png)   
+
+
+## Dynamic Documents: integrate the two universes!  
+![](./One universe.png)
+
+  
+## Dynamic Documents: A Recipe  
+
+- 1 simple language that can combine text and code: `Markdown` 
+- 1 statistical package to do the analysis (`R`, `Python`, `3S's?`)
+- 1 machinery to combine analysis and text to create a single output: `Pandoc`
+- [Optional-but-not-really] 1 program to bring all the elements together: RStudio/RMarkdown, Jupyter
+
+
+# One Type of Dynamic Document: R Markdown
+
+## For our excercise: R Markdown  
+
+- `R`: **open source** programming language design for statistical analysis.   
+- RStudio: free software that provides and Integrated Development Environment (IDE)  
+- RStudio combines all together: R + Markdown + Pandoc to produce multiple outputs
+![](http://rmarkdown.rstudio.com/images/RMarkdownFlow.png)  
+
+
+## R Markdown  
+![](http://rmarkdown.rstudio.com/images/RMarkdownOutputFormats.png)
+
+## Basic Structure
+
+- A header
+- Text
+- Code: inline and chunks
+
+## Basic Structure: Header
+
+```{r smpl yml, eval=FALSE, echo=TRUE}
+---
+title: "Sample Paper"
+author: "Fernando Hoces de la Guardia"
+output: html_document
+---
+```  
+
+```{r global pars, eval=TRUE, echo=FALSE, results='hide'}
+n.pers = 40
+```  
+
+
+## Basic Structure: Body of Text
+
+```{r smpl_yml1, eval=FALSE, echo=TRUE}
+---
+header
+---
+```
+
+This is where you write your paper. Nothing much to add. You can check Markdown [syntax here](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf). And it can use can type equations using LaTex syntax!
+
+## Basic Structure: Code Chunks and Inline
+
+```{r smpl_yml2, eval=FALSE, echo=TRUE}
+---
+header
+---
+```
+
+Body of text. 
+
+
+To begin a piece of code ("code chunk"). Enclose them in the following expression (Ctrl/Cmd + shift/optn + i) 
+
+````
+```{r, eval=TRUE}`r ''`
+here goes the code
+```
+````
+
+To write inline use only one Backtick to open followed by an "r"" and one to close `` `r
+1+1` `` in the output.
+
+# Practical Excercise #1
+
+## Hands-on excercise: the birthday problem!
+
+As an illustration lets write a report using the participants in this workshop to illustrate the famous [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem). 
+
+>What is the probability that at least two people this room share the same birthday?
+
+>Is it something like $\frac{1}{365} \times N =$   `r round(1/365 * n.pers, 3)`?
+
+## Create a new RMarkdown File
+
+1 - In RStudio: `File-> New File -> RMarkdown...`  
+2 - Name it, and save it.   
+3 - Review/edit the header, and delete all the default body of text except for one code chunk.   
+4 - Define a seed (`set.seed = 1234` and number of people in the room (`n.pers = ?`)
+
+## The birthday problem: the math
+Actually the math says otherwise: 
+\begin{align} 
+ 1 - \bar p(n) &= 1 \times \left(1-\frac{1}{365}\right) \times \left(1-\frac{2}{365}\right) \times \cdots \times \left(1-\frac{n-1}{365}\right) \nonumber  \\  &= \frac{ 365 \times 364 \times \cdots \times (365-n+1) }{ 365^n } \nonumber \\ &= \frac{ 365! }{ 365^n (365-n)!} = \frac{n!\cdot\binom{365}{n}}{365^n}\\
+p(n= `r n.pers`) &= `r  round(1 - factorial(n.pers) * choose(365,n.pers)/ 365^n.pers, 3)`  \nonumber
+\end{align}
+
+## Code for the math (<https://goo.gl/cf3w1Y>)
+
+Don't look at this: just copy and paste into your report
+```{r math, eval=FALSE}
+\begin{align} 
+ 1 - \bar p(n) &= 1 \times \left(1-\frac{1}{365}\right) 
+ \times \left(1-\frac{2}{365}\right) \times \cdots \times 
+ \left(1-\frac{n-1}{365}\right) \nonumber  \\  
+ &= \frac{ 365 \times 364 \times \cdots \times 
+   (365-n+1) }{ 365^n } \nonumber \\ 
+ &= \frac{ 365! }{ 365^n (365-n)!} = 
+   \frac{n!\cdot\binom{365}{n}}{365^n}\\
+p(n= `r n.pers`) &= `r  
+ round(1 - factorial(n.pers) * 
+         choose(365,n.pers)/ 365^n.pers, 3)`\nonumber
+\end{align}
+```
+
+## Don't like math? Let's run a simple simulation!   
+ 1 - Simulate 10,000 rooms with $n = `r n.pers`$ random birthdays, and store the results in matrix where each row represents a room.   
+ 2 - For each room (row) compute the number of unique birthdays.   
+ 3 - Compute the average number of times a room has `r n.pers` unique birthdays, across 10,000 simulations, and report the complement.    
+
+
+## Code for the simulation (<https://goo.gl/cf3w1Y>)  
+
+```{r birthday prob, eval=TRUE, echo=TRUE}
+birthday.prob = function(n.pers, n.sims) {
+  # simulate birthdays
+  birthdays = matrix(round(runif(n.pers * n.sims, 1, 365)), 
+                      nrow = n.sims, ncol = n.pers)
+  # for each room (row) get unique birthdays
+  unique.birthdays = apply(birthdays, 1, unique)
+  # Indicator with 1 if all are unique birthdays
+  all.different = (lapply(unique.birthdays, length) == n.pers)
+  # Compute average time all have different birthdays 
+  result = 1 - mean(all.different)
+return(result)
+}
+n.pers.param = 43
+n.sims.param = 1e4
+birthday.prob(n.pers.param,n.sims.param)
+```
+
+
+# Practical Excercise #2
+
+## Hands-on excercise #2: DD (diff in diff) with DD (dynamic docs)
+
+As an illustration lets write a report using the participants in this workshop to illustrate the famous [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem). 
+
+>What is the probability that at least two people this room share the same birthday?
+
+>Is it something like $\frac{1}{365} \times N =$   `r round(1/365 * n.pers, 3)`?
+
+
+
+## Results   
+- Many people originally think of a prob ~ $\frac{1}{365} \times N =$   `r round(1/365 * n.pers.param, 3)`
+- However the true probability is of $p(n= `r n.pers.param`) = `r round(1 - factorial(n.pers.param) * choose(365,n.pers.param)/ 365^n.pers.param, 3)`$
+- And the simulated probability is of  `r birthday.prob(n.pers = n.pers.param, n.sims = n.sims.param)`
+
+# Final Remarks & More Resources
+
+## Final Remarks & More Resources
+ - With DD with can achieve a one-click reproducible workflow.
+ - This is particularly helpful to understand/present results that are hard to digest.
+ - Stata just develop an internal version of DD for v15. [Review Here](https://www.bitss.org/2017/09/05/review-of-statas-dyndoc/)
+ - More great examples [here](https://github.com/BITSS/Annual2017/tree/master/3-Rmarkdown)
+ - Want to learn more: [great free books](https://bookdown.org/) (can you guess how they were written?)
