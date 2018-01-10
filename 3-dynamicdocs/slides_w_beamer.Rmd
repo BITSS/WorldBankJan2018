@@ -1,6 +1,6 @@
 ---
 title: "Dynamic Documents For Your Research Workflow"
-author: "| Fernando Hoces de la Guardia\n| BITSS   \n| -\n| Slides at <https://goo.gl/cf3w1Y>\n"
+author: "| Fernando Hoces de la Guardia\n| BITSS   \n| -\n| Slides at <https://goo.gl/VbiKb4>\n"
 date: "World Bank Workshop, January 2018"
 output:
   ioslides_presentation: default
@@ -201,5 +201,5 @@ Lets use the of examples Figure [5.2.4](https://github.com/vikjam/mostly-harmles
  - With DD we can achieve a one-click reproducible workflow.
  - This is particularly helpful to understand/present results that are hard to digest.
  - Stata just develop an internal version of DD for v15. [Review Here](https://www.bitss.org/2017/09/05/review-of-statas-dyndoc/)
- - More great examples [here](https://github.com/BITSS/Annual2017/tree/master/3-Rmarkdown)
+ - More great examples in the workshop repo (`4-Moredynamicdocs`)
  - Want to learn more: [great free books](https://bookdown.org/) (can you guess how they were written?)
