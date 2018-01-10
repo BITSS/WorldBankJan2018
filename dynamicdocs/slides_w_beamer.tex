@@ -261,28 +261,8 @@ across 10,000 simulations, and report the complement.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.8886
+## [1] 0.8928
 \end{verbatim}
-
-\end{frame}
-
-\section{Practical Excercise \#2}\label{practical-excercise-2}
-
-\begin{frame}{Hands-on excercise \#2: DD (Diff in Diff) with DD (dynamic
-docs)}
-
-As an illustration lets write a report using the participants in this
-workshop to illustrate the famous
-\href{https://en.wikipedia.org/wiki/Birthday_problem}{birthday problem}.
-
-\begin{quote}
-What is the probability that at least two people this room share the
-same birthday?
-\end{quote}
-
-\begin{quote}
-Is it something like \(\frac{1}{365} \times N =\) 0.11?
-\end{quote}
 
 \end{frame}
 
@@ -296,8 +276,23 @@ Is it something like \(\frac{1}{365} \times N =\) 0.11?
 \item
   However the true probability is of \(p(n= 40) = 0.891\)
 \item
-  And the simulated probability is of 0.8923
+  And the simulated probability is of 0.8928
 \end{itemize}
+
+\end{frame}
+
+\section{Practical Excercise \#2}\label{practical-excercise-2}
+
+\begin{frame}{Hands-on excercise \#2: Mostly Harmless Econometrics!
+(@WB?)}
+
+There is a
+\href{https://github.com/vikjam/mostly-harmless-replication}{fantastic
+Github} repo that is reproducing results from MHE (Originated here?)
+
+Lets use the of examples Figure
+\href{https://github.com/vikjam/mostly-harmless-replication/blob/master/05\%20Fixed\%20Effects\%2C\%20DD\%20and\%20Panel\%20Data/Figure\%205-2-4.r}{5.2.4}
+to show how dynamic docs can be used in data analysis.
 
 \end{frame}
 
@@ -309,7 +304,7 @@ Resources}\label{final-remarks-more-resources}
 \begin{itemize}
 \tightlist
 \item
-  With DD with can achieve a one-click reproducible workflow.
+  With DD we can achieve a one-click reproducible workflow.
 \item
   This is particularly helpful to understand/present results that are
   hard to digest.
