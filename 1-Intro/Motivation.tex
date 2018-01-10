@@ -1,0 +1,680 @@
+
+\documentclass{beamer} 
+
+
+\mode<presentation>
+{
+  \usetheme{Berkeley}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+% or whatever
+\usepackage{array}
+
+
+\usepackage{relsize, lscape}
+\usepackage{multirow, booktabs, adjustbox}
+
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+
+
+
+
+
+\usepackage{adjustbox}
+
+\usepackage{listings, amsmath}
+\usepackage{natbib}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    linkcolor=blue,
+    urlcolor=blue,
+    backref=true
+}
+
+
+\urlstyle{same}
+
+
+\def\gray{\color{lightgray}}
+\def\red{\color{red}}
+\def\white{\color{white}}
+\def\brown{\color{brown}}
+\def\black{\color{black}}
+
+\usepackage[utf8]{inputenc}
+% or whatever
+
+\usepackage{times}
+%\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,angles,quotes}
+\usetikzlibrary{shapes, shadows, arrows, positioning}
+
+
+
+
+\title[] % (optional, use only with long paper titles)
+{Reproducible Analytics at the World Bank}
+
+\subtitle
+{}
+
+\author[] % (optional, use only with lots of authors)
+{Garret~Christensen\inst{1}\inst{2}\\
+Fernando~Hoces de la Guardia\inst{1}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+{
+  \inst{1}%
+  UC Berkeley:\\
+  Berkeley Initiative for Transparency in the Social Sciences\\
+  \inst{2}%
+  Berkeley Institute for Data Sciences\\
+}
+
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[BITSS2017] % (optional, should be abbreviation of conference name)
+{World Bank, January 2018}
+%\\
+%Slides available online at \url{https://goo.gl/RtfxqX}}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+\subject{Research Transparency}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+\pgfdeclareimage[height=2cm]{university-logo}{../Images/BITSSlogo.png}
+\logo{\pgfuseimage{university-logo}}
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+\beamerdefaultoverlayspecification{<.->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+
+
+% Structuring a talk is a difficult task and the following structure
+% may not be suitable. Here are some rules that apply for this
+% solution: 
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+% - A conference audience is likely to know very little of what you
+%   are going to talk about. So *simplify*!
+% - In a 20min talk, getting the main ideas across is hard
+%   enough. Leave out details, even if it means being less precise than
+%   you think necessary.
+% - If you omit details that are vital to the proof/implementation,
+%   just say so once. Everybody will be happy with that.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Outline}
+%  \tableofcontents
+  % You might wish to add the option [pausesections]
+%\end{frame}
+
+
+{ % all template changes are local to this group.
+    \setbeamertemplate{navigation symbols}{}
+    \begin{frame}[plain]
+        \begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \href{https://www.bitss.org/}{\includegraphics[width=\paperwidth]{../Images/bitsslogo.png}}
+            };
+        \end{tikzpicture}
+     \end{frame}
+}
+
+\begin{frame}{Research Transparency}
+\textbf{Issues:}
+\begin{itemize}
+\item Scientific misconduct
+\item Publication Bias
+\item Specification searching / P-Hacking
+\item Replications problems
+\end{itemize}
+\textbf{Solutions:}
+\begin{itemize}
+\item Ethical research
+\item Registrations
+\item PAPs
+\item Guidelines and Protocols
+\end{itemize}
+\medskip
+
+\textbf{Want to learn more?:} MOOC, RT2 Amsterdam, and more! 
+\end{frame}
+
+
+
+\begin{frame}{New Dimension to Increase Transparency and Reproducibility: Policy Analysis}
+
+
+\
+\tikzstyle{agent} = [diamond, draw, node distance= 7em, minimum height=5em, minimum width=5em]
+\tikzstyle{line} = [draw, -stealth]
+
+\tikzstyle{line_enph} = [draw, red, ultra thick]
+\tikzstyle{inp} = [draw, circle, text centered, minimum height=2em, text width=2em, node distance= 10em]
+\tikzstyle{outp} = [draw, circle, text centered, minimum height=2em, text width=2em, node distance= 10em]
+\tikzstyle{block1} = [draw, circle,  text width=5em, text centered, minimum height=7em, node distance= 5em]
+\tikzstyle{block2} = [draw, circle,  text width=7em, text centered, minimum height=2em, node distance= 5em]
+\tikzstyle{block3} = [draw, rounded rectangle,  text width=5em, text centered, minimum height=2em, node distance= 5em]
+
+
+\begin{figure}[h!]\centering
+\vspace{-2.0em}
+\begin{tikzpicture}[thick,scale=0.55, every node/.style={scale=0.55}]
+
+%% The oddly shaped truth
+\node[regular polygon, regular polygon sides=3,
+              draw, fill=white,
+              inner sep=.1em,
+              shape border rotate=70](tru){Truth};
+
+
+%%%%%Researcher 1 and Inputs: depends on R_1%%%%%%%
+\node [block1, right = 2em of tru](R_1){Research\linebreak $(R)$};
+\node [block1,inner sep=0em, right = 2em of R_1](PA_1){Policy \linebreak Analysis: ($PA$) \linebreak  Gains  \& \linebreak losses};
+\node [block1, above right = 0em and 8em of R_1](PM_1){Policy\linebreak Maker 1};
+\node [block1, below right = 0em and 8em of R_1](PM_2){Policy\linebreak Maker 2};
+
+\node [block3, right = 2em of PM_1](PC_1){Support};
+\node [block3, right = 2em of PM_2](PC_2){Oppose};
+
+
+%%%%% Draw edges col 2%%%%%%%%%%%%%%%%%
+%Research  to PA
+\draw [line](tru) -- (R_1);
+\draw [line](R_1) -- (PA_1);
+%PA to PM
+\draw [line](PA_1) -- (PM_1);
+\draw [line](PA_1) -- (PM_2);
+%PM to PC
+\draw [line](PM_1) -- (PC_1);
+\draw [line](PM_2) -- (PC_2);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\draw[decoration={brace}, decorate] (7,3.4) -- node[above=6pt](lab4){{\Large Observed by citizens} }(16,3.4);
+
+
+
+
+\end{tikzpicture}
+\vspace{-.8em}
+\end{figure}
+\end{frame}
+
+
+
+
+
+\begin{frame}[shrink=30]{Credibility Crisis}
+
+
+
+\tikzstyle{agent} = [diamond, draw, node distance= 7em, minimum height=5em, minimum width=5em]
+\tikzstyle{line} = [draw, -stealth]
+
+\tikzstyle{line_d} = [draw, dashed, -stealth]
+\tikzstyle{inp} = [draw, circle, text centered, minimum height=2em, text width=2em, node distance= 10em]
+\tikzstyle{outp} = [draw, circle, text centered, minimum height=2em, text width=2em, node distance= 10em]
+\tikzstyle{block1} = [draw, circle,  text width=3em, text centered, minimum height=2em, node distance= 5em]
+\tikzstyle{block2} = [draw, circle,  text width=4em, text centered, minimum height=2em, node distance= 5em]
+\tikzstyle{block3} = [draw, rounded rectangle,  text width=5em, text centered, minimum height=2em, node distance= 5em]
+
+\begin{figure}[h!]
+\centering
+\hspace*{0.2\linewidth}
+\begin{tikzpicture}[thick,scale=0.2, every node/.style={scale=0.8}]
+
+%% The oddly shaped truth
+\node[regular polygon, regular polygon sides=3,
+              draw, fill=white,
+              inner sep=.1em,
+              shape border rotate=70](tru){Truth};
+
+
+%%%%%Researcher 1 and Inputs: depends on R_1%%%%%%%
+\node [block1, right = 5em of tru](R_2){$R_2$};
+\node [block1, above = 8em of R_2](R_1){$R_1$} node [left = -0.1em of R_1, text width = 5em]{Large Treatment Effect};
+\node [block1, below = 8em of R_2](R_3){$R_3$} node [left = -0.1em of R_3, text width = 5em]{Small Treatment Effect};
+
+\draw[decoration={brace,mirror}, decorate] (13,-33) -- node[below=6pt, text width = 4.8em](lab1){Researchers Degrees of 
+Freedom}(18,-33);
+
+\draw[decoration={brace,mirror}, decorate] (29,-33) -- node[below=6pt, text width = 4.8em](lab2){P. Analyst Degrees of 
+Freedom}(34,-33);
+
+\draw[decoration={brace}, decorate] (31,33) -- node[below=2pt]{Observed by citizens}(70,33);
+
+%\node [agent](Researcher_1){$R_1$} node [left = 0.6em of Researcher_1, text width = 8em]{Large Treatment Effect};
+
+\node [block1, right = 5em of R_1](PA_12){$PA_{1,2}$};
+\node [block1, above = .5em of PA_12](PA_11){$PA_{1,1}$} node [right = -0.1em of PA_11, text width = 5em]{Large gains only};
+\node [block1, below = .5em of PA_12](PA_13){$PA_{1,3}$};
+
+\node [block1, right = 5em of R_2](PA_22){$PA_{22,}$};
+\node [block1, above = .5em of PA_22](PA_21){$PA_{2,1}$};
+\node [block1, below = .5em of PA_22](PA_23){$PA_{2,3}$};
+
+\node [block1, right = 5em of R_3](PA_32){$PA_{3,2}$};
+\node [block1, above = .5em of PA_32](PA_31){$PA_{3,1}$};
+\node [block1, below = .5em of PA_32](PA_33){$PA_{3,3}$} node [right = -0.1em of PA_33, text width = 5em]{Large losses only};
+
+
+\node [block2, above right = 3em and 15em of R_2](PM_1){Policy\linebreak Maker 1};
+\node [block2, below right = 3em and 15em of R_2](PM_2){Policy\linebreak Maker 2};
+
+\node [block3, right = 3em of PM_1](PC_1){Support};
+\node [block3, right = 3em of PM_2](PC_2){Oppose};
+
+
+%%%%% Draw edges col 2%%%%%%%%%%%%%%%%%
+%Truth to research
+\draw [line](tru) -- (R_1);
+\draw [line_d](tru) -- (R_2);
+\draw [line_d](tru) -- (R_3);
+
+
+%Research  to PA
+\draw [line_d](R_1) -- (PA_13);
+\draw [line_d](R_1) -- (PA_11);
+\draw [line](R_1) -- (PA_12);
+
+\draw [line_d](R_2) -- (PA_23);
+\draw [line_d](R_2) -- (PA_21);
+\draw [line_d](R_2) -- (PA_22);
+
+\draw [line_d](R_3) -- (PA_33);
+\draw [line_d](R_3) -- (PA_31);
+\draw [line_d](R_3) -- (PA_32);
+
+
+
+%PA to PM
+\draw [line](PA_11) -- (PM_1);
+\draw [line](PA_33) -- (PM_2);
+%PM to PC
+\draw [line](PM_1) -- (PC_1);
+\draw [line](PM_2) -- (PC_2);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\end{tikzpicture}
+\caption{Policy-making with low TR in research and policy analysis}\label{low_cred}
+\end{figure}
+%\end{comment}
+\end{frame}
+
+\begin{frame}{Relevance}
+
+{
+\large
+\begin{itemize}
+\item Policy makers can cherry-pick facts
+\item Hinders automation and/or systematic improvements of reports
+\item Unclear how research affects policy estimates
+\end{itemize}
+}
+\end{frame}
+
+
+
+%14 mins (5/6/3)
+%\subsection[Parallels between Sci \& PA]{Parallels of T \& R between Science and Policy Analysis}
+%5mins
+\begin{frame}{Transparency and Reproducibility in Policy and Research}
+ \centering
+ \resizebox{\textwidth}{!}{%
+\begin{tabular}{ P{3cm}  P{4cm}  P{5cm} }
+     \toprule
+     & Research & Policy Analysis \\
+     \midrule \midrule
+     Output 		 & Peer reviewed publication & Client-oriented policy report \\
+     \hline
+     Problems of low TR &  
+     Ex: Publication Bias. 
+     &  Ex:Low credibility. \\
+     \hline
+	 Common Solutions &  \multicolumn{2}{ P{9cm} }{ \centering
+     Disclosure of key details. \linebreak Open data and materials. } \\
+     \hline
+     Common Tools &  \multicolumn{2}{ P{9cm} }{ \centering Dynamic documentation.  \linebreak Distributed version control. } \\
+     \hline
+     Specific Solutions & Ex:Test for reproducibility & Ex: Develop reproducibility\\
+     \hline
+     Who increases \linebreak TR & Researchers, Funders, Journals &   \textbf{Not} the policy analysts (Maybe: Policy schools, Think tanks, Media.  \textbf{Yes:} BITSS!) \\
+     \toprule
+
+\end{tabular}}
+\end{frame}
+
+
+
+%14 mins (5/6/3)
+%\subsection[Parallels between Sci \& PA]{Parallels of T \& R between Science and Policy Analysis}
+%5mins
+\begin{frame}[noframenumbering]{Transparency and Reproducibility in Policy and Research}
+ \centering
+ \resizebox{\textwidth}{!}{%
+\begin{tabular}{ P{3cm}  P{4cm}  P{5cm} }
+     \toprule
+     & Research & Policy Analysis \\
+     \midrule \midrule
+     Output 		 & Peer reviewed publication & Client-oriented policy report \\
+     \hline
+     Problems of low TR &  
+     Ex: Publication Bias. 
+     &  Ex:Low credibility. \\
+     \hline
+    \textbf{Common Solutions} &  \multicolumn{2}{ P{9cm} }{ \centering
+  \textbf{   Disclosure of key details. \linebreak Open data and materials. } } \\
+     \hline
+     \textbf{Common Tools}  &  \multicolumn{2}{ P{9cm} }{ \centering \textbf{ Dynamic documentation.  \linebreak Distributed version control. } } \\
+     \hline
+     Specific Solutions & Ex:Test for reproducibility & Ex: Develop reproducibility\\
+     \hline
+     Who increases \linebreak TR & Researchers, Funders, Journals &   \textbf{Not} the policy analysts (Maybe: Policy schools, Think tanks, Media.  \textbf{Yes:} BITSS!) \\
+     \toprule
+
+\end{tabular}}
+\end{frame}
+
+
+
+\begin{frame}{Transparency and Reproducibility in Policy and Research }  
+
+\begin{center}
+{\LARGE
+We don't know how the sausage is made!  
+
+\pause
+\bigskip
+Let's follow science, open up the kitchen. And publish the cook book with the recipe. 
+%Let’s follow open science and publish a cook book with the recipe
+}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}{Our Proposal for Open Policy Analysis}
+\begin{enumerate}
+
+\item Increase awareness (Motivational paper coming soon!)
+
+\item Publish guidelines on transparency and reproducibility for policy analysis (similar to the TOP Guidelines for research). 
+
+\item Partner with agencies/think tanks interested in implementing these ideas.
+\texttt{\href{https://rpubs.com/fhoces/dd_cbo_mw}{\underline{Example here.}}}
+
+\item Iterate.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]
+\begin{center}
+\vspace*{4em}
+{\Large Thank you.\\
+\bigskip
+{\Large  \href{mailto:fhoces@berkeley.edu}{fhoces@berkeley.edu}  }
+}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]
+\begin{center}
+\vspace*{4em}
+{\Large Backup Slides
+}
+\end{center}
+\end{frame}
+
+
+
+%6mins
+\begin{frame}[shrink=25, label = pa_comp]{Guidelines Goal}
+
+\tikzstyle{estimate} = [diamond, draw, node distance= 7em,text width = 5em, minimum height=5em, minimum width=5em, align = center]
+\tikzstyle{line} = [draw, -stealth]
+\tikzstyle{line_enph} = [draw, red, ultra thick]
+\tikzstyle{inp} = [draw, rectangle, text centered, minimum height=3em, text width=2em, node distance= 2em]
+\tikzstyle{source} = [draw, rectangle, text centered, minimum height=8em, text width=5em, node distance= 10em]
+\tikzstyle{model} = [draw, rectangle, text centered, minimum height=8em, text width=15em, node distance= 10em]
+%\tikzstyle{outp} = [draw, ellipse, text centered, minimum height=2mm, text width=2em, node distance= 10em]
+%\tikzstyle{block} = [draw, rectangle,  text width=8em, text centered, minimum height=55mm, node distance= 5em]
+
+
+%\begin{adjustbox}{max totalsize={1\textwidth}{.8\textheight},center}
+
+\begin{figure}[h!]\centering 
+\hspace*{-2.5em}
+\begin{tikzpicture}[thick,scale=0.6, every node/.style={scale=0.6}]
+\setbeamercovered{invisible}
+
+%%%%%Nodes: Sources%%%%%%%
+\onslide<1-5>\node [source](D_1){$Data$};
+\onslide<1>\node [source, below = 1em of D_1](Lit){$Research$};
+\onslide<1-5>\node [source, below = 1em of Lit](OR){\textit{Guess work}};
+
+
+\draw[decoration={brace,mirror}, decorate] (-1.2,-10) -- node[below=6pt] {$Sources$}(1.1,-10);
+
+\draw[decoration={brace,mirror}, decorate] (4.8,-11.3) -- node[below=6pt] {$Inputs$}(6.2,-11.3);
+
+
+%node[below = 1em ](OR) -- node[below = 6em]{asd}(OR)
+
+
+%\onslide<2-5>\node [source, color=red](Lit){$Research$};
+\onslide<2-5>\node [source, below = 1em of D_1, color=red](Lit){$Research$};
+
+%%%%%Nodes: Inputs%%%%%%%
+\onslide<1-5>\node [inp, above right = 1em and 6em of  D_1 ](I_1){$I_1$};
+\onslide<1-5>\node [inp, below = 1em of I_1](I_2){$I_2$};
+\onslide<1-2>\node [inp, below = 8em of I_2](I_j){$I_j$};
+\onslide<1-5>\node [inp, below right = 1em and 6em of OR ](I_last){$I_J$};
+
+\onslide<3->\node [inp,  color=red, below = 8em of I_2](I_j){$I_j$};
+
+
+\onslide<1-5>\path (I_2) -- node[auto=false, rotate=90, anchor=north, outer sep=-0.5em]{\ldots} (I_j);
+\onslide<1-5>\path (I_j) -- node[auto=false, rotate=90, anchor=north, outer sep=-0.5em]{\ldots} (I_last);
+
+%%%%%Paths connecting Sources with Inputs%%%%%%%
+\onslide<1-5>\draw [line](D_1.east) -- (I_1.west);
+\onslide<1-5>\draw [line](D_1.east) -- (I_2.west);
+\onslide<1-2>\draw [line, opacity=1, anchor=center](Lit.east) -- (I_j.west);
+\onslide<1-5>\draw [line, opacity=1, anchor=center](OR.east) -- (I_last.west);
+
+\onslide<3->\draw [line,  color=red](Lit.east) -- (I_j.west);
+
+
+\onslide<1-5>\draw [line, opacity=.3][xshift=1em](D_1.east) -- ([yshift=-8 em]I_1.west);
+\onslide<1-5>\draw [line, opacity=.3][xshift=1em](D_1.east) -- ([yshift=-10 em]I_1.west);
+
+\onslide<1-5>\draw [line, opacity=.3][xshift=1em](Lit.east) -- ([yshift=7 em]I_j.west);
+\onslide<1-5>\draw [line, opacity=.3][xshift=1em](Lit.east) -- ([yshift=-5 em]I_j.west);
+
+\onslide<1-5>\draw [line, opacity=.3][xshift=1em](OR.east) -- ([yshift=3 em]I_last.west);
+\onslide<1-5>\draw [line, opacity=.3][xshift=1em](OR.east) -- ([yshift=5 em]I_last.west);
+
+
+%%%%%Node and paths for model%%%%%%%
+\onslide<1-3>\node [model, below right = 2em and 10em of D_1](model){$Model$};
+\onslide<1-5>\draw [line](I_1) -| (model);
+\onslide<1-5>\draw [line](I_2) -| (model);
+\onslide<1-3>\draw [line](I_j) |- (model);
+\onslide<1-5>\draw [line](I_last) -| (model);
+
+\onslide<4->\node [model,  color=red, below right = 2em and 10em of D_1](model){$Model$};
+\onslide<4->\draw [line,  color=red](I_j) |- (model);
+
+
+%%%%%Node and paths for policy estimates%%%%%%%
+\onslide<1-4>\node [estimate, right = 5em of model](PE_2){$Policy$ $Estimate_2$};
+\onslide<1-4>\node [estimate, above = 5em of PE_2](PE_1){$Policy$ $Estimate_1$};
+\onslide<1-4>\node [estimate, below = 5em of PE_2](PE_3){$Policy$ $Estimate_3$};
+
+
+\onslide<1-4>\draw [line] (model.east) -- (PE_1.south west);
+\onslide<1-4>\draw [line] (model.east) -- (PE_2.west);
+\onslide<1-4>\draw [line] (model.east) -- (PE_3.north west);
+
+
+\onslide<5->\node [estimate,  color=red, right = 5em of model](PE_2){$Policy$ $Estimate_2$};
+\onslide<5->\node [estimate,  color=red, above = 5em of PE_2](PE_1){$Policy$ $Estimate_1$};
+\onslide<5->\node [estimate,  color=red, below = 5em of PE_2](PE_3){$Policy$ $Estimate_3$};
+
+
+\onslide<5->\draw [line,  color=red] (model.east) -- (PE_1.south west);
+\onslide<5->\draw [line,  color=red] (model.east) -- (PE_2.west);
+\onslide<5->\draw [line,  color=red] (model.east) -- (PE_3.north west);
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Summary of Adapted Guidelines}
+ \centering
+ \resizebox{25em}{10em}{%
+    \begin{tabular}{ P{1.2cm} P{1.5cm} P{3cm}  P{3cm}  P{3cm} }
+     \toprule
+     {\black Standard} & {\black Level 0} 	& {\black Level 1} & {\black Level 2} & {\black Level 3} \\
+     \midrule      \midrule
+   {\black Workflow} & {\gray Policy estimates vaguely described}  & {\gray All the inputs, and their corresponding sources, used in the calculations are listed } & {\gray Lvl 1 + Policy estimates are listed, in same unit if possible} & {\gray Lvl 2 + all the components can be modified with little effort} \\
+     \midrule
+    {\black Data} & {\gray Report says nothing} & {\gray Clearly stated whether all, some components, or none of the data is available, with instructions for access when possible.} & {\gray Lvl 1 + report and data are in same place} & {\gray Lvl 2 + Report has specific lines of code that call the data and changes in the data produce traceable changes in the report} \\
+     \midrule
+      {\black Methods \& Code} & {\gray Key assumption are listed} & {\gray Methods are described in prose. Large amount of work is required to reproduce qualitatively similar estimates}  & {\gray Methods and described in prose, with detailed formulas, and code is provided as supplementary material} & {\gray Lvl 2 + All is in the same document where changes in the code affect the output automatically} \\
+     \toprule
+     \multicolumn{5}{ P{11.7cm} }{  \raggedleft {\black\small{ From TOP guidelines \citep{nosek2015promoting} v1.0.1}} }
+   \end{tabular}}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]{Summary of Adapted Guidelines}
+ \centering
+ \resizebox{25em}{10em}{%
+    \begin{tabular}{ P{1.2cm} P{1.5cm} P{3cm}  P{3cm}  P{3cm} }
+     \toprule
+    {\black Standard} & {\red Level 0 } 	&  {\red Level 1 } &  {\red Level 2}  & {\red Level 3 }  \\
+     \midrule      \midrule
+    {\black Workflow} & {\gray Policy estimates vaguely described}  & {\gray All the inputs, and their corresponding sources, used in the calculations are listed } & {\gray Lvl 1 + Policy estimates are listed, in same unit if possible} & {\gray Lvl 2 + all the components can be modified with little effort} \\
+     \midrule
+    {\black Data} & {\gray Report says nothing} & {\gray Clearly stated whether all, some components, or none of the data is available, with instructions for access when possible.} & {\gray Lvl 1 + report and data are in same place} & {\gray Lvl 2 + Report has specific lines of code that call the data and changes in the data produce traceable changes in the report} \\
+     \midrule
+      {\black Methods \& Code} & {\gray Key assumption are listed} & {\gray Methods are described in prose. Large amount of work is required to reproduce qualitatively similar estimates}  & {\gray Methods and described in prose, with detailed formulas, and code is provided as supplementary material} & {\gray Lvl 2 + All is in the same document where changes in the code affect the output automatically} \\
+     \toprule
+     \multicolumn{5}{ P{11.7cm} }{  \raggedleft {\black\small{ From TOP guidelines \citep{nosek2015promoting} v1.0.1}}}
+   \end{tabular}}
+\end{frame}
+
+
+\begin{frame}[noframenumbering]{Summary of Adapted Guidelines}
+ \centering
+ \resizebox{25em}{10em}{%
+    \begin{tabular}{ P{1.2cm} P{1.5cm} P{3cm}  P{3cm}  P{3cm} }
+     \toprule
+     {\red Standard} & {\black Level 0} 	& {\black Level 1} & {\black Level 2} & {\black Level 3} \\
+     \midrule      \midrule
+    {\red Workflow} & {\gray Policy estimates vaguely described}  & {\gray All the inputs, and their corresponding sources, used in the calculations are listed} & {\gray Lvl 1 + Policy estimates are listed, in same unit if possible} & {\gray Lvl 2 + all the components can be modified with little effort} \\
+     \midrule
+    {\red Data} & {\gray Report says nothing} & {\gray Clearly stated whether all, some components, or none of the data is available, with instructions for access when possible.} & {\gray Lvl 1 + report and data are in same place} & {\gray Lvl 2 + Report has specific lines of code that call the data and changes in the data produce traceable changes in the report} \\
+     \midrule
+      {\red Methods \& Code} & {\gray Key assumption are listed} & {\gray Methods are described in prose. Large amount of work is required to reproduce qualitatively similar estimates}  & {\gray Methods and described in prose, with detailed formulas, and code is provided as supplementary material} & {\gray Lvl 2 + All is in the same document where changes in the code affect the output automatically} \\
+     \toprule
+     \multicolumn{5}{ P{11.7cm} }{  \raggedleft {\black\small{ From TOP guidelines \citep{nosek2015promoting} v1.0.1}} }
+   \end{tabular}}
+\end{frame}
+
+\begin{frame}[noframenumbering, label=guidelines_sum]{Summary of Adapted Guidelines}
+ \centering
+ \resizebox{25em}{10em}{%
+    \begin{tabular}{ P{1.2cm} P{1.5cm} P{3cm}  P{3cm}  P{3cm} }
+     \toprule
+     Standard & Level 0 	& Level 1 & Level 2 & Level 3 \\
+     \midrule      \midrule
+   {\black Workflow} & {\gray Policy estimates vaguely described}  & {\gray All the inputs, and their corresponding sources, used in the calculations are listed } & {\gray Lvl 1 + Policy estimates are listed, in same unit if possible} & {\gray Lvl 2 + all the components can be modified with little effort} \\
+     \midrule
+    {\black Data} & {\gray Report says nothing} & {\gray Clearly stated whether all, some components, or none of the data is available, with instructions for access when possible.} & {\gray Lvl 1 + report and data are in same place} & {\gray Lvl 2 + Report has specific lines of code that call the data and changes in the data produce traceable changes in the report} \\
+     \midrule
+      {\black Methods \& Code} & {\gray Key assumption are listed} & {\gray Methods are described in prose. Large amount of work is required to reproduce qualitatively similar estimates}  & {\gray Methods and described in prose, with detailed formulas, and code is provided as supplementary material} & {\gray Lvl 2 + All is in the same document where changes in the code affect the output automatically} \\
+     \toprule
+     \multicolumn{5}{ P{11.7cm} }{  \raggedleft {\red\small{ From TOP guidelines \citep{nosek2015promoting} v1.0.1}}}
+   \end{tabular}}
+\end{frame}
+
+
+
+
+
+
+
+\end{document}
+

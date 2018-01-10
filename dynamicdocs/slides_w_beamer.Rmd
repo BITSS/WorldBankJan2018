@@ -1,7 +1,7 @@
 ---
 title: "Dynamic Documents For Your Research Workflow"
 author: "| Fernando Hoces de la Guardia\n| BITSS   \n| -\n| Slides at <https://goo.gl/cf3w1Y>\n"
-date: "BITSS Annual Meeting, December 2017"
+date: "World Bank Workshop, January 2018"
 output:
   beamer_presentation:
     fig_caption: no
@@ -37,6 +37,10 @@ output:
 - 1 machinery to combine analysis and text to create a single output: `Pandoc`
 - [Optional-but-not-really] 1 program to bring all the elements together: RStudio/RMarkdown, Jupyter
 
+## Markdown laguange/syntax in 60 seconds
+
+
+COMPLETET
 
 # One Type of Dynamic Document: R Markdown
 
@@ -175,7 +179,7 @@ birthday.prob(n.pers.param,n.sims.param)
 
 # Practical Excercise #2
 
-## Hands-on excercise #2: DD (diff in diff) with DD (dynamic docs)
+## Hands-on excercise #2: DD (Diff in Diff) with DD (dynamic docs)
 
 As an illustration lets write a report using the participants in this workshop to illustrate the famous [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem). 
 
