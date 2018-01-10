@@ -66,7 +66,7 @@ output: html_document
 ```  
 
 ```{r global pars, eval=TRUE, echo=FALSE, results='hide'}
-n.pers = 40
+n.pers = 27
 ```  
 
 
@@ -117,7 +117,7 @@ As an illustration lets write a report using the participants in this workshop t
 1 - In RStudio: `File-> New File -> RMarkdown...`  
 2 - Name it, and save it.   
 3 - Review/edit the header, and delete all the default body of text except for one code chunk.   
-4 - Define a seed (`set.seed = 1234` and number of people in the room (`n.pers = ?`)
+4 - Define a seed (`set.seed(1234)` and number of people in the room (`n.pers = ?`)
 
 ## The birthday problem: the math
 Actually the math says otherwise: 
@@ -126,7 +126,7 @@ Actually the math says otherwise:
 p(n= `r n.pers`) &= `r  round(1 - factorial(n.pers) * choose(365,n.pers)/ 365^n.pers, 3)`  \nonumber
 \end{align}
 
-## Code for the math (<https://goo.gl/cf3w1Y>)
+## Code for the math (<https://goo.gl/2z1ggK>)
 
 Don't look at this: just copy and paste into your report
 ```{r math, eval=FALSE}
@@ -153,7 +153,7 @@ p(n= `r n.pers`) &= `r
  3 - Compute the average number of times a room has `r n.pers` unique birthdays, across 10,000 simulations, and report the complement.    
 
 
-## Code for the simulation (<https://goo.gl/cf3w1Y>)  
+## Code for the simulation (<https://goo.gl/2z1ggK>)  
 
 ```{r birthday prob, eval=TRUE, echo=TRUE}
 birthday.prob = function(n.pers, n.sims) {
@@ -170,7 +170,7 @@ birthday.prob = function(n.pers, n.sims) {
   result = 1 - mean(all.different)
 return(result)
 }
-n.pers.param = 40
+n.pers.param = 27
 n.sims.param = 1e4
 birthday.prob(n.pers.param,n.sims.param)
 ```
