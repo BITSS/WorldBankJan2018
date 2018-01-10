@@ -13,10 +13,6 @@ output:
 
 # Dynamic Documents For Computational Reproducibility
 
-## First: can you take this quick survey please?
-
-\Huge{https://goo.gl/oZjMCf}
-
 ## Dynamic Documents For Computational Reproducibility
 - Based on principles of *literate programming* aims at combining code and paper in one single document 
 - Best framework to achieve the holy grail of **one-click reproducible workflow**
@@ -38,9 +34,7 @@ output:
 - [Optional-but-not-really] 1 program to bring all the elements together: RStudio/RMarkdown, Jupyter
 
 ## Markdown laguange/syntax in 60 seconds
-
-
-COMPLETET
+![](./RStudioCS.png)
 
 # One Type of Dynamic Document: R Markdown
 
@@ -137,8 +131,10 @@ p(n= `r n.pers`) &= `r  round(1 - factorial(n.pers) * choose(365,n.pers)/ 365^n.
 Don't look at this: just copy and paste into your report
 ```{r math, eval=FALSE}
 \begin{align} 
- 1 - \bar p(n) &= 1 \times \left(1-\frac{1}{365}\right) 
- \times \left(1-\frac{2}{365}\right) \times \cdots \times 
+ 1 - \bar p(n) &= 1 \times \left(1-\frac{1}{365}
+                                 \right) 
+ \times \left(1-\frac{2}{365}\right) \times \cdots 
+ \times 
  \left(1-\frac{n-1}{365}\right) \nonumber  \\  
  &= \frac{ 365 \times 364 \times \cdots \times 
    (365-n+1) }{ 365^n } \nonumber \\ 
@@ -146,7 +142,8 @@ Don't look at this: just copy and paste into your report
    \frac{n!\cdot\binom{365}{n}}{365^n}\\
 p(n= `r n.pers`) &= `r  
  round(1 - factorial(n.pers) * 
-         choose(365,n.pers)/ 365^n.pers, 3)`\nonumber
+         choose(365,n.pers)/ 365^n.pers, 3)`
+ \nonumber
 \end{align}
 ```
 
@@ -161,17 +158,19 @@ p(n= `r n.pers`) &= `r
 ```{r birthday prob, eval=TRUE, echo=TRUE}
 birthday.prob = function(n.pers, n.sims) {
   # simulate birthdays
-  birthdays = matrix(round(runif(n.pers * n.sims, 1, 365)), 
+  birthdays = matrix(round(runif(n.pers * n.sims, 
+                                 1, 365)), 
                       nrow = n.sims, ncol = n.pers)
   # for each room (row) get unique birthdays
   unique.birthdays = apply(birthdays, 1, unique)
   # Indicator with 1 if all are unique birthdays
-  all.different = (lapply(unique.birthdays, length) == n.pers)
+  all.different = (lapply(unique.birthdays, 
+                          length) == n.pers)
   # Compute average time all have different birthdays 
   result = 1 - mean(all.different)
 return(result)
 }
-n.pers.param = 43
+n.pers.param = 40
 n.sims.param = 1e4
 birthday.prob(n.pers.param,n.sims.param)
 ```

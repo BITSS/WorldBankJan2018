@@ -11,7 +11,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 set.seed = 1234
-n.pers = 50
+n.pers = 40
 ```
 
 # Birthday problem  

@@ -1,12 +1,6 @@
 \section{Dynamic Documents For Computational
 Reproducibility}\label{dynamic-documents-for-computational-reproducibility}
 
-\begin{frame}{First: can you take this quick survey please?}
-
-\Huge{https://goo.gl/oZjMCf}
-
-\end{frame}
-
 \begin{frame}[fragile]{Dynamic Documents For Computational
 Reproducibility}
 
@@ -55,6 +49,12 @@ universes}
   {[}Optional-but-not-really{]} 1 program to bring all the elements
   together: RStudio/RMarkdown, Jupyter
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Markdown laguange/syntax in 60 seconds}
+
+\includegraphics{./RStudioCS.png}
 
 \end{frame}
 
@@ -206,8 +206,10 @@ Don't look at this: just copy and paste into your report
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{\textbackslash{}begin\{align\} }
- \DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{\textbackslash{}bar }\KeywordTok{p}\NormalTok{(n) }\OperatorTok{&}\ErrorTok{=}\StringTok{ }\DecValTok{1}\NormalTok{ \textbackslash{}times \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{}\DecValTok{1}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) }
-\NormalTok{ \textbackslash{}times \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{}\DecValTok{2}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) \textbackslash{}times \textbackslash{}cdots \textbackslash{}times }
+ \DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{\textbackslash{}bar }\KeywordTok{p}\NormalTok{(n) }\OperatorTok{&}\ErrorTok{=}\StringTok{ }\DecValTok{1}\NormalTok{ \textbackslash{}times \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{}\DecValTok{1}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}}
+\NormalTok{                                 \textbackslash{}right) }
+\NormalTok{ \textbackslash{}times \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{}\DecValTok{2}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) \textbackslash{}times \textbackslash{}cdots }
+\NormalTok{ \textbackslash{}times }
 \NormalTok{ \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{n}\OperatorTok{-}\DecValTok{1}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) \textbackslash{}nonumber  \textbackslash{}\textbackslash{}  }
  \OperatorTok{&}\ErrorTok{=}\StringTok{ }\NormalTok{\textbackslash{}frac\{ }\DecValTok{365}\NormalTok{ \textbackslash{}times }\DecValTok{364}\NormalTok{ \textbackslash{}times \textbackslash{}cdots \textbackslash{}times }
 \NormalTok{   (}\DecValTok{365}\OperatorTok{-}\NormalTok{n}\OperatorTok{+}\DecValTok{1}\NormalTok{) \}\{ }\DecValTok{365}\OperatorTok{^}\NormalTok{n \} \textbackslash{}nonumber \textbackslash{}\textbackslash{} }
@@ -215,7 +217,8 @@ Don't look at this: just copy and paste into your report
 \StringTok{   }\NormalTok{\textbackslash{}frac\{n}\OperatorTok{!}\NormalTok{\textbackslash{}cdot\textbackslash{}binom\{}\DecValTok{365}\NormalTok{\}\{n\}\}\{}\DecValTok{365}\OperatorTok{^}\NormalTok{n\}\textbackslash{}\textbackslash{}}
 \KeywordTok{p}\NormalTok{(}\DataTypeTok{n=} \StringTok{`}\DataTypeTok{r n.pers}\StringTok{`}\NormalTok{) }\OperatorTok{&}\ErrorTok{=}\StringTok{ `}\DataTypeTok{r  }
 \DataTypeTok{ round(1 - factorial(n.pers) * }
-\DataTypeTok{         choose(365,n.pers)/ 365^n.pers, 3)}\StringTok{`}\NormalTok{\textbackslash{}nonumber}
+\DataTypeTok{         choose(365,n.pers)/ 365^n.pers, 3)}\StringTok{`}
+\NormalTok{ \textbackslash{}nonumber}
 \NormalTok{\textbackslash{}end\{align\}}
 \end{Highlighting}
 \end{Shaded}
@@ -239,25 +242,47 @@ across 10,000 simulations, and report the complement.
 \begin{Highlighting}[]
 \NormalTok{birthday.prob =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(n.pers, n.sims) \{}
   \CommentTok{# simulate birthdays}
-\NormalTok{  birthdays =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{round}\NormalTok{(}\KeywordTok{runif}\NormalTok{(n.pers }\OperatorTok{*}\StringTok{ }\NormalTok{n.sims, }\DecValTok{1}\NormalTok{, }\DecValTok{365}\NormalTok{)), }
+\NormalTok{  birthdays =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{round}\NormalTok{(}\KeywordTok{runif}\NormalTok{(n.pers }\OperatorTok{*}\StringTok{ }\NormalTok{n.sims, }
+                                 \DecValTok{1}\NormalTok{, }\DecValTok{365}\NormalTok{)), }
                       \DataTypeTok{nrow =}\NormalTok{ n.sims, }\DataTypeTok{ncol =}\NormalTok{ n.pers)}
   \CommentTok{# for each room (row) get unique birthdays}
 \NormalTok{  unique.birthdays =}\StringTok{ }\KeywordTok{apply}\NormalTok{(birthdays, }\DecValTok{1}\NormalTok{, unique)}
   \CommentTok{# Indicator with 1 if all are unique birthdays}
-\NormalTok{  all.different =}\StringTok{ }\NormalTok{(}\KeywordTok{lapply}\NormalTok{(unique.birthdays, length) }\OperatorTok{==}\StringTok{ }\NormalTok{n.pers)}
+\NormalTok{  all.different =}\StringTok{ }\NormalTok{(}\KeywordTok{lapply}\NormalTok{(unique.birthdays, }
+\NormalTok{                          length) }\OperatorTok{==}\StringTok{ }\NormalTok{n.pers)}
   \CommentTok{# Compute average time all have different birthdays }
 \NormalTok{  result =}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(all.different)}
 \KeywordTok{return}\NormalTok{(result)}
 \NormalTok{\}}
-\NormalTok{n.pers.param =}\StringTok{ }\DecValTok{43}
+\NormalTok{n.pers.param =}\StringTok{ }\DecValTok{40}
 \NormalTok{n.sims.param =}\StringTok{ }\FloatTok{1e4}
 \KeywordTok{birthday.prob}\NormalTok{(n.pers.param,n.sims.param)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.9228
+## [1] 0.8886
 \end{verbatim}
+
+\end{frame}
+
+\section{Practical Excercise \#2}\label{practical-excercise-2}
+
+\begin{frame}{Hands-on excercise \#2: DD (Diff in Diff) with DD (dynamic
+docs)}
+
+As an illustration lets write a report using the participants in this
+workshop to illustrate the famous
+\href{https://en.wikipedia.org/wiki/Birthday_problem}{birthday problem}.
+
+\begin{quote}
+What is the probability that at least two people this room share the
+same birthday?
+\end{quote}
+
+\begin{quote}
+Is it something like \(\frac{1}{365} \times N =\) 0.11?
+\end{quote}
 
 \end{frame}
 
@@ -267,11 +292,11 @@ across 10,000 simulations, and report the complement.
 \tightlist
 \item
   Many people originally think of a prob \textasciitilde{}
-  \(\frac{1}{365} \times N =\) 0.118
+  \(\frac{1}{365} \times N =\) 0.11
 \item
-  However the true probability is of \(p(n= 43) = 0.924\)
+  However the true probability is of \(p(n= 40) = 0.891\)
 \item
-  And the simulated probability is of 0.9236
+  And the simulated probability is of 0.8923
 \end{itemize}
 
 \end{frame}
