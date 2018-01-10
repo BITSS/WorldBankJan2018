@@ -3,12 +3,12 @@ title: "Dynamic Documents For Your Research Workflow"
 author: "| Fernando Hoces de la Guardia\n| BITSS   \n| -\n| Slides at <https://goo.gl/VbiKb4>\n"
 date: "World Bank Workshop, January 2018"
 output:
-  ioslides_presentation: default
-  slidy_presentation: default
   beamer_presentation:
     fig_caption: no
     keep_tex: yes
     toc: yes
+  slidy_presentation: default
+  ioslides_presentation: default
 ---
 
 # Dynamic Documents For Computational Reproducibility
