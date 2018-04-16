@@ -28,8 +28,8 @@ First download the data from the author's website (will migrate to external data
 
 ```{r download and load data, echo=TRUE, warning=FALSE, results='hide', message=FALSE}
 # Download the data and unzip it
-#download.file('http://economics.mit.edu/~dautor/outsourcingatwill_table7.zip', 
-#              'outsourcingatwill_table7.zip')
+download.file('http://economics.mit.edu/~dautor/outsourcingatwill_table7.zip', 
+              'outsourcingatwill_table7.zip')
 unzip('outsourcingatwill_table7.zip')
 
 # Load the data
