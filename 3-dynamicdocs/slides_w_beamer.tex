@@ -1,8 +1,157 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[ignorenonframetext,]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Dynamic Documents For Your Research Workflow},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+\centering
+\begin{beamercolorbox}[sep=16pt,center]{part title}
+  \usebeamerfont{part title}\insertpart\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+\centering
+\begin{beamercolorbox}[sep=12pt,center]{part title}
+  \usebeamerfont{section title}\insertsection\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{part title}
+  \usebeamerfont{subsection title}\insertsubsection\par
+\end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Dynamic Documents For Your Research Workflow}
+\author{Fernando Hoces de la Guardia\\
+BITSS\\
+-\\
+Slides at \url{https://goo.gl/VbiKb4}}
+\date{World Bank Workshop, January 2018}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}
+\tableofcontents[hideallsubsections]
+\end{frame}
+\hypertarget{dynamic-documents-for-computational-reproducibility}{%
 \section{Dynamic Documents For Computational
-Reproducibility}\label{dynamic-documents-for-computational-reproducibility}
+Reproducibility}\label{dynamic-documents-for-computational-reproducibility}}
 
 \begin{frame}[fragile]{Dynamic Documents For Computational
 Reproducibility}
+\protect\hypertarget{dynamic-documents-for-computational-reproducibility-1}{}
 
 \begin{itemize}
 \tightlist
@@ -22,18 +171,21 @@ Reproducibility}
 
 \begin{frame}{Currently code and narrative components live in separate
 universes}
+\protect\hypertarget{currently-code-and-narrative-components-live-in-separate-universes}{}
 
 \includegraphics{./Two universes.png}
 
 \end{frame}
 
 \begin{frame}{Dynamic Documents: integrate the two universes!}
+\protect\hypertarget{dynamic-documents-integrate-the-two-universes}{}
 
 \includegraphics{./One universe.png}
 
 \end{frame}
 
 \begin{frame}[fragile]{Dynamic Documents: A Recipe}
+\protect\hypertarget{dynamic-documents-a-recipe}{}
 
 \begin{itemize}
 \tightlist
@@ -53,15 +205,18 @@ universes}
 \end{frame}
 
 \begin{frame}{Markdown laguange/syntax in 60 seconds}
+\protect\hypertarget{markdown-laguangesyntax-in-60-seconds}{}
 
 \includegraphics{./RStudioCS.png}
 
 \end{frame}
 
+\hypertarget{one-type-of-dynamic-document-r-markdown}{%
 \section{One Type of Dynamic Document: R
-Markdown}\label{one-type-of-dynamic-document-r-markdown}
+Markdown}\label{one-type-of-dynamic-document-r-markdown}}
 
 \begin{frame}[fragile]{For our excercise: R Markdown}
+\protect\hypertarget{for-our-excercise-r-markdown}{}
 
 \begin{itemize}
 \tightlist
@@ -80,12 +235,14 @@ Markdown}\label{one-type-of-dynamic-document-r-markdown}
 \end{frame}
 
 \begin{frame}{R Markdown}
+\protect\hypertarget{r-markdown}{}
 
 \includegraphics{http://rmarkdown.rstudio.com/images/RMarkdownOutputFormats.png}
 
 \end{frame}
 
 \begin{frame}{Basic Structure}
+\protect\hypertarget{basic-structure}{}
 
 \begin{itemize}
 \tightlist
@@ -100,6 +257,7 @@ Markdown}\label{one-type-of-dynamic-document-r-markdown}
 \end{frame}
 
 \begin{frame}[fragile]{Basic Structure: Header}
+\protect\hypertarget{basic-structure-header}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -114,6 +272,7 @@ Markdown}\label{one-type-of-dynamic-document-r-markdown}
 \end{frame}
 
 \begin{frame}[fragile]{Basic Structure: Body of Text}
+\protect\hypertarget{basic-structure-body-of-text}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -131,6 +290,7 @@ here}. And it can use can type equations using LaTex syntax!
 \end{frame}
 
 \begin{frame}[fragile]{Basic Structure: Code Chunks and Inline}
+\protect\hypertarget{basic-structure-code-chunks-and-inline}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -157,9 +317,11 @@ output.
 
 \end{frame}
 
-\section{Practical Excercise \#1}\label{practical-excercise-1}
+\hypertarget{practical-excercise-1}{%
+\section{Practical Excercise \#1}\label{practical-excercise-1}}
 
 \begin{frame}{Hands-on excercise: the birthday problem!}
+\protect\hypertarget{hands-on-excercise-the-birthday-problem}{}
 
 As an illustration lets write a report using the participants in this
 workshop to illustrate the famous
@@ -177,6 +339,7 @@ Is it something like \(\frac{1}{365} \times N =\) 0.074?
 \end{frame}
 
 \begin{frame}[fragile]{Create a new RMarkdown File}
+\protect\hypertarget{create-a-new-rmarkdown-file}{}
 
 1 - In RStudio:
 \texttt{File-\textgreater{}\ New\ File\ -\textgreater{}\ RMarkdown...}\\
@@ -189,10 +352,9 @@ room (\texttt{n.pers\ =\ ?})
 \end{frame}
 
 \begin{frame}{The birthday problem: the math}
+\protect\hypertarget{the-birthday-problem-the-math}{}
 
-Actually the math says otherwise:
-
-\begin{align} 
+Actually the math says otherwise: \begin{align} 
  1 - \bar p(n) &= 1 \times \left(1-\frac{1}{365}\right) \times \left(1-\frac{2}{365}\right) \times \cdots \times \left(1-\frac{n-1}{365}\right) \nonumber  \\  &= \frac{ 365 \times 364 \times \cdots \times (365-n+1) }{ 365^n } \nonumber \\ &= \frac{ 365! }{ 365^n (365-n)!} = \frac{n!\cdot\binom{365}{n}}{365^n}\\
 p(n= 27) &= 0.627  \nonumber
 \end{align}
@@ -200,6 +362,7 @@ p(n= 27) &= 0.627  \nonumber
 \end{frame}
 
 \begin{frame}[fragile]{Code for the math (\url{https://goo.gl/2z1ggK})}
+\protect\hypertarget{code-for-the-math-httpsgoo.gl2z1ggk}{}
 
 Don't look at this: just copy and paste into your report
 
@@ -210,7 +373,7 @@ Don't look at this: just copy and paste into your report
 \NormalTok{                                 \textbackslash{}right) }
 \NormalTok{ \textbackslash{}times \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{}\DecValTok{2}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) \textbackslash{}times \textbackslash{}cdots }
 \NormalTok{ \textbackslash{}times }
-\NormalTok{ \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{n}\OperatorTok{-}\DecValTok{1}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) \textbackslash{}nonumber  \textbackslash{}\textbackslash{}  }
+\NormalTok{ \textbackslash{}}\KeywordTok{left}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{\textbackslash{}frac\{n}\DecValTok{-1}\NormalTok{\}\{}\DecValTok{365}\NormalTok{\}\textbackslash{}right) \textbackslash{}nonumber  \textbackslash{}\textbackslash{}  }
  \OperatorTok{&}\ErrorTok{=}\StringTok{ }\NormalTok{\textbackslash{}frac\{ }\DecValTok{365}\NormalTok{ \textbackslash{}times }\DecValTok{364}\NormalTok{ \textbackslash{}times \textbackslash{}cdots \textbackslash{}times }
 \NormalTok{   (}\DecValTok{365}\OperatorTok{-}\NormalTok{n}\OperatorTok{+}\DecValTok{1}\NormalTok{) \}\{ }\DecValTok{365}\OperatorTok{^}\NormalTok{n \} \textbackslash{}nonumber \textbackslash{}\textbackslash{} }
  \OperatorTok{&}\ErrorTok{=}\StringTok{ }\NormalTok{\textbackslash{}frac\{ }\DecValTok{365}\OperatorTok{!}\StringTok{ }\NormalTok{\}\{ }\DecValTok{365}\OperatorTok{^}\KeywordTok{n}\NormalTok{ (}\DecValTok{365}\OperatorTok{-}\NormalTok{n)}\OperatorTok{!}\NormalTok{\} =}\StringTok{ }
@@ -226,6 +389,7 @@ Don't look at this: just copy and paste into your report
 \end{frame}
 
 \begin{frame}{Don't like math? Let's run a simple simulation!}
+\protect\hypertarget{dont-like-math-lets-run-a-simple-simulation}{}
 
 1 - Simulate 10,000 rooms with \(n = 27\) random birthdays, and store
 the results in matrix where each row represents a room.\\
@@ -237,6 +401,7 @@ across 10,000 simulations, and report the complement.
 
 \begin{frame}[fragile]{Code for the simulation
 (\url{https://goo.gl/2z1ggK})}
+\protect\hypertarget{code-for-the-simulation-httpsgoo.gl2z1ggk}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -261,12 +426,13 @@ across 10,000 simulations, and report the complement.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.6294
+## [1] 0.6254
 \end{verbatim}
 
 \end{frame}
 
 \begin{frame}{Results}
+\protect\hypertarget{results}{}
 
 \begin{itemize}
 \tightlist
@@ -276,15 +442,17 @@ across 10,000 simulations, and report the complement.
 \item
   However the true probability is of \(p(n= 27) = 0.627\)
 \item
-  And the simulated probability is of 0.6312
+  And the simulated probability is of 0.6348
 \end{itemize}
 
 \end{frame}
 
-\section{Practical Excercise \#2}\label{practical-excercise-2}
+\hypertarget{practical-excercise-2}{%
+\section{Practical Excercise \#2}\label{practical-excercise-2}}
 
 \begin{frame}{Hands-on excercise \#2: Mostly Harmless Econometrics!
 (@WB?)}
+\protect\hypertarget{hands-on-excercise-2-mostly-harmless-econometrics-wb}{}
 
 There is a
 \href{https://github.com/vikjam/mostly-harmless-replication}{fantastic
@@ -296,10 +464,12 @@ to show how dynamic docs can be used in data analysis.
 
 \end{frame}
 
+\hypertarget{final-remarks-more-resources}{%
 \section{Final Remarks \& More
-Resources}\label{final-remarks-more-resources}
+Resources}\label{final-remarks-more-resources}}
 
 \begin{frame}[fragile]{Final Remarks \& More Resources}
+\protect\hypertarget{final-remarks-more-resources-1}{}
 
 \begin{itemize}
 \tightlist
@@ -320,3 +490,5 @@ Resources}\label{final-remarks-more-resources}
 \end{itemize}
 
 \end{frame}
+
+\end{document}
